@@ -5,6 +5,8 @@
 
 package dev.cluvex.zedsecure.ui.vault
 
+import dev.cluvex.zedsecure.AppFlags
+
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -158,6 +160,7 @@ fun VaultScreen(
             Modifier.fillMaxWidth().padding(20.dp),
             verticalArrangement = Arrangement.spacedBy(10.dp),
         ) {
+            if (AppFlags.CONFIG_SHARING_ENABLED) {
             Button(
                 onClick = {
                     if (sources.isEmpty()) {
@@ -172,6 +175,7 @@ fun VaultScreen(
                 Icon(painterResource(Res.drawable.ic_lock), null, Modifier.size(20.dp))
                 Spacer(Modifier.width(10.dp))
                 Text(stringResource(Res.string.vault_create), fontWeight = FontWeight.SemiBold)
+            }
             }
             FilledTonalButton(
                 onClick = onImportRequested,

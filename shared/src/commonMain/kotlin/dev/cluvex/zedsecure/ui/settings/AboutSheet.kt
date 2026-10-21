@@ -2,6 +2,8 @@
 
 package dev.cluvex.zedsecure.ui.settings
 
+import dev.cluvex.zedsecure.AppFlags
+
 import org.jetbrains.compose.resources.DrawableResource
 
 import androidx.compose.foundation.layout.Arrangement
@@ -56,7 +58,7 @@ fun AboutSheet(onDismiss: () -> Unit) {
                 modifier = Modifier.size(96.dp),
             ) {
                 Text(
-                    "Z",
+                    stringResource(Res.string.app_name).take(1).uppercase(),
                     style = MaterialTheme.typography.displaySmall,
                     fontWeight = FontWeight.Bold,
                     color = Color.White,
@@ -81,12 +83,14 @@ fun AboutSheet(onDismiss: () -> Unit) {
 
             Spacer(Modifier.size(4.dp))
 
+            if (AppFlags.ORIGINAL_AUTHOR_LINKS_ENABLED) {
             LinkRow(
                 iconRes = Res.drawable.ic_add_link,
                 title = stringResource(Res.string.about_telegram),
                 subtitle = "t.me/CluvexStudio",
                 onClick = { platform.openUri(TELEGRAM_URL) },
             )
+            }
             LinkRow(
                 iconRes = Res.drawable.ic_description,
                 title = stringResource(Res.string.about_github),

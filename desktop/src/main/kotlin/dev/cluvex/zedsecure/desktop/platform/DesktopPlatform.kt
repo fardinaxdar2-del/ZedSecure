@@ -54,6 +54,7 @@ object DesktopPlatform : Platform {
     }.getOrNull()
 
     override fun shareText(text: String) {
+        if (!dev.cluvex.zedsecure.AppFlags.CONFIG_SHARING_ENABLED) return
         copyToClipboard(text)
         LogBus.append("I/Share copied to clipboard")
     }
@@ -79,6 +80,7 @@ object DesktopPlatform : Platform {
     }
 
     override fun shareFiles(files: List<Pair<String, ByteArray>>) {
+        if (!dev.cluvex.zedsecure.AppFlags.CONFIG_SHARING_ENABLED) return
         if (files.isEmpty()) return
         val named = uniqueNames(files.map { (name, bytes) -> dev.cluvex.zedsecure.crypto.zsxFileName(name) to bytes })
         val home = File(System.getProperty("user.home"))

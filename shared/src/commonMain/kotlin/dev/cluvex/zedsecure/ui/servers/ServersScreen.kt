@@ -6,6 +6,8 @@
 
 package dev.cluvex.zedsecure.ui.servers
 
+import dev.cluvex.zedsecure.AppFlags
+
 import org.jetbrains.compose.resources.DrawableResource
 import org.jetbrains.compose.resources.StringResource
 import androidx.compose.foundation.background
@@ -653,6 +655,7 @@ fun ServersScreen(
                                 confirmDeleteInvalid = repository.invalidCount()
                             },
                         )
+                        if (AppFlags.CONFIG_SHARING_ENABLED) {
                         DropdownMenuItem(
                             text = { Text(stringResource(Res.string.export_all)) },
                             leadingIcon = { Icon(painterResource(Res.drawable.ic_ios_share), null) },
@@ -666,6 +669,7 @@ fun ServersScreen(
                                 }
                             },
                         )
+                        }
                         DropdownMenuItem(
                             text = { Text(stringResource(Res.string.del_all)) },
                             leadingIcon = { Icon(painterResource(Res.drawable.ic_delete), null) },
@@ -1930,6 +1934,7 @@ private fun ServerCard(
                     onDismissRequest = { menuOpen = false },
                     shape = MaterialTheme.shapes.largeIncreased,
                 ) {
+                    if (AppFlags.CONFIG_SHARING_ENABLED) {
                     DropdownMenuItem(
                         text = { Text(stringResource(Res.string.action_share)) },
                         leadingIcon = { Icon(painterResource(Res.drawable.ic_ios_share), null) },
@@ -1943,6 +1948,7 @@ private fun ServerCard(
                         enabled = shareLink != null,
                         onClick = { menuOpen = false; onShareQr() },
                     )
+                    }
                     DropdownMenuItem(
                         text = { Text(stringResource(Res.string.action_edit)) },
                         leadingIcon = { Icon(painterResource(Res.drawable.ic_edit), null) },
@@ -2255,10 +2261,12 @@ private fun RawJsonSheet(
                     enabled = parsed.isSuccess,
                     label = { Text(stringResource(Res.string.json_minify)) },
                 )
+                if (AppFlags.CONFIG_SHARING_ENABLED) {
                 AssistChip(
                     onClick = { platform.copyToClipboard(text) },
                     label = { Text(stringResource(Res.string.action_copy)) },
                 )
+                }
                 AssistChip(
                     onClick = { platform.readClipboard()?.takeIf { it.isNotBlank() }?.let { text = it } },
                     label = { Text(stringResource(Res.string.json_paste)) },

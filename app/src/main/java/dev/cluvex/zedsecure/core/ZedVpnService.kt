@@ -241,7 +241,7 @@ class ZedVpnService : VpnService() {
         sniSpoofEdge = spoofBypassIp
         val descriptor = try {
             Builder().apply {
-                setSession(remark.ifBlank { "ZedSecure" })
+                setSession(remark.ifBlank { "SamNet VPN" })
                 setMtu(tunMtu)
 
                 addAddress(iface.ipv4Router, 30)

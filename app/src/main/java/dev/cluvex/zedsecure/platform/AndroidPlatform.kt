@@ -167,6 +167,7 @@ class AndroidPlatform(
     }
 
     override fun shareText(text: String) {
+        if (!dev.cluvex.zedsecure.AppFlags.CONFIG_SHARING_ENABLED) return
         if (text.length > INLINE_SHARE_LIMIT) {
             ZsxSharing.shareText(context, "zedsecure-export.txt", text)
             return
@@ -198,6 +199,7 @@ class AndroidPlatform(
     private val INLINE_SHARE_LIMIT = 64 * 1024
 
     override fun shareFiles(files: List<Pair<String, ByteArray>>) {
+        if (!dev.cluvex.zedsecure.AppFlags.CONFIG_SHARING_ENABLED) return
         ZsxSharing.shareMany(context, files)
     }
 

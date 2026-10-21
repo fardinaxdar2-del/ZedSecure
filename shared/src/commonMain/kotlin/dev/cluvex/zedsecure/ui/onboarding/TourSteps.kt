@@ -1,5 +1,7 @@
 package dev.cluvex.zedsecure.ui.onboarding
 
+import dev.cluvex.zedsecure.AppFlags
+
 import androidx.compose.runtime.Composable
 import dev.cluvex.zedsecure.shared.resources.Res
 import dev.cluvex.zedsecure.shared.resources.*
@@ -122,4 +124,4 @@ fun rememberTourSteps(): List<TourStep> = listOf(
         body = stringResource(Res.string.tour_set_about_body),
         destination = TourDestination.Settings,
     ),
-)
+).filter { AppFlags.ORIGINAL_AUTHOR_LINKS_ENABLED || it.target != TourTargets.SETTINGS_SUPPORT }

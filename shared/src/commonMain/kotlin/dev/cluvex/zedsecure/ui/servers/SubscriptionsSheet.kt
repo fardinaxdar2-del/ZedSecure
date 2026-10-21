@@ -2,6 +2,8 @@
 
 package dev.cluvex.zedsecure.ui.servers
 
+import dev.cluvex.zedsecure.AppFlags
+
 import androidx.compose.runtime.key
 import sh.calvin.reorderable.ReorderableColumn
 import androidx.compose.ui.text.input.ImeAction
@@ -240,11 +242,13 @@ fun SubscriptionsSheet(
                                         }
                                     }
 
+                                    if (AppFlags.CONFIG_SHARING_ENABLED) {
                                     IconButton(onClick = { qrTarget = sub.name to sub.url }) {
                                         Icon(
                                             painterResource(Res.drawable.ic_qr_code_2),
                                             contentDescription = stringResource(Res.string.action_share_qr),
                                         )
+                                    }
                                     }
                                     IconButton(onClick = { renameTarget = sub }) {
                                         Icon(

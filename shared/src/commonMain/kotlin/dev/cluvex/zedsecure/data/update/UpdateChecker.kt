@@ -1,5 +1,7 @@
 package dev.cluvex.zedsecure.data.update
 
+import dev.cluvex.zedsecure.AppFlags
+
 import dev.cluvex.zedsecure.platform.AppInfo
 import dev.cluvex.zedsecure.platform.httpGetViaSocks
 import dev.cluvex.zedsecure.platform.httpJson
@@ -53,9 +55,12 @@ object UpdateChecker {
         abis: List<String>,
         socksPort: Int?,
         lang: String,
-    ): UpdateInfo? = when (distribution) {
-        Distribution.PlayStore -> fetchFromPlay(socksPort, lang)
-        Distribution.GitHub -> fetchFromGitHub(abis, socksPort)
+    ): UpdateInfo? {
+        if (!AppFlags.ORIGINAL_AUTHOR_LINKS_ENABLED) return null
+        return when (distribution) {
+            Distribution.PlayStore -> fetchFromPlay(socksPort, lang)
+            Distribution.GitHub -> fetchFromGitHub(abis, socksPort)
+        }
     }
 
     private suspend fun fetchFromGitHub(abis: List<String>, socksPort: Int?): UpdateInfo? = runCatching {

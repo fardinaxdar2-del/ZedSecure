@@ -2,6 +2,8 @@
 
 package dev.cluvex.zedsecure.ui.home
 
+import dev.cluvex.zedsecure.AppFlags
+
 import androidx.compose.foundation.background
 import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.layout.Arrangement
@@ -187,6 +189,7 @@ fun LogSheet(onDismiss: () -> Unit) {
                     style = MaterialTheme.typography.labelMedium,
                     color = MaterialTheme.colorScheme.onSurfaceVariant,
                 )
+                if (AppFlags.CONFIG_SHARING_ENABLED) {
                 FilledTonalButton(onClick = {
                     platform.copyToClipboard(lines.joinToString("\n") { it.raw })
                     platform.toast(logsCopied)
@@ -195,6 +198,7 @@ fun LogSheet(onDismiss: () -> Unit) {
                 }
                 FilledTonalButton(onClick = { platform.shareText(lines.joinToString("\n") { it.raw }) }) {
                     Icon(painterResource(Res.drawable.ic_ios_share), stringResource(Res.string.logs_share), Modifier.height(18.dp))
+                }
                 }
                 FilledTonalButton(onClick = { LogBus.clear() }) {
                     Icon(painterResource(Res.drawable.ic_delete), stringResource(Res.string.logs_clear), Modifier.height(18.dp))

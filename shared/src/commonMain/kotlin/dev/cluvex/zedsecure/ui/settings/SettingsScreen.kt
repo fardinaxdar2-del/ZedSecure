@@ -5,6 +5,8 @@
 
 package dev.cluvex.zedsecure.ui.settings
 
+import dev.cluvex.zedsecure.AppFlags
+
 import dev.cluvex.zedsecure.ui.platform.BackHandler
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Arrangement
@@ -308,12 +310,14 @@ private fun RootPage(
             reduceMotion = settings.reduceMotion,
         )
 
+        if (AppFlags.ORIGINAL_AUTHOR_LINKS_ENABLED) {
         SettingsGroup(modifier = Modifier.tourTargetInPage(TourTargets.SETTINGS_SUPPORT)) {
             SettingsBannerRow(
                 stringResource(Res.string.support_title),
                 stringResource(Res.string.support_subtitle),
                 art = SettingsArts.Support,
             ) { onOpen(SettingsPage.Support) }
+        }
         }
 
         SettingsGroup(
@@ -458,6 +462,7 @@ private fun RootPage(
             stringResource(Res.string.settings_about),
             modifier = Modifier.tourTargetInPage(TourTargets.SETTINGS_ABOUT),
         ) {
+            if (AppFlags.ORIGINAL_AUTHOR_LINKS_ENABLED) {
             val fromPlay = platform.distribution == Distribution.PlayStore
             SettingsMenuRow(
                 stringResource(Res.string.update_check_title),
@@ -478,6 +483,7 @@ private fun RootPage(
                 stringResource(if (fromPlay) Res.string.rate_summary else Res.string.rate_summary_github),
                 art = SettingsArts.Rate,
             ) { platform.openStorePage() }
+            }
             SettingsMenuRow(
                 stringResource(Res.string.privacy_title),
                 stringResource(Res.string.privacy_settings_sub),
